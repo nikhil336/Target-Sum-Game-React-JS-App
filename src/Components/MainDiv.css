@@ -1,0 +1,58 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+
+.numbuttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultbtn {
+    border: none;
+    width: 25%;
+    padding: 20px 0px 20px;
+    margin: 0px 0px 20px;
+    background-color: lightgrey;
+}
+
+.resultnumber {
+    display: flex;
+    justify-content: space-around;
+}
+
+.otherbtn {
+    border: none;
+    width: 11%;
+    padding: 15px 0px 15px;
+    margin: 5px 10px 20px 10px;
+    border-radius: 5px;
+}
+
+.greenbtn {
+    border: none;
+    width: 25%;
+    padding: 20px 0px 20px;
+    margin: 0px 0px 20px;
+    background-color: green; 
+}
+
+.redbtn {
+    border: none;
+    width: 25%;
+    padding: 20px 0px 20px;
+    margin: 0px 0px 20px;
+    background-color: red;
+}
+
+.playbtn {
+    display: flex;
+    justify-content: space-around;
+}
+
+#play {
+    border: none;
+    padding: 10px 15px 10px 15px;
+}
