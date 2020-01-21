@@ -6,44 +6,49 @@ class MainDiv extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            flag : false,
             gameFlag : false
         }
-        //this.timerFlag = false;
+        this.greenFlag = false;
+        this.timerFlag = false;
         this.sum  = 0;
         this.counter = 0;
         this.target = 0;
         this.randomNumbers = [];
-        // this.timeleft = 15;
+        this.timeleft = 15;
+        this.downloadTimer = 0;
     }
     
-    // downloadTimer = setInterval(() => {
-    //     document.getElementById("countdown").innerHTML = this.timeleft + " seconds remaining";
-    //     this.timeleft -= 1;
-    //     if(this.timerFlag || this.timeleft <= 0){
-    //         clearInterval(this.downloadTimer);
-    //         document.getElementById("countdown").innerHTML = "Finished";
-    //     }
-    // }, 1000);
+    timerFun = () => {this.downloadTimer = setInterval(() => {
+            document.getElementById("countdown").innerHTML = this.timeleft + " seconds remaining";
+            this.timeleft -= 1;
+            if(this.timerFlag || this.timeleft <= 0){
+                clearInterval(this.downloadTimer);
+                if(!this.greenFlag) {
+                    this.refs.rbtn.setAttribute('class','redbtn');
+                }
+                document.getElementById("countdown").innerHTML = "Finished";
+                this.counter = 0;
+                this.timerFlag = true;
+            }
+        }, 1000);
+    }
 
     sumFun = (val) => {
-        if(this.state.gameFlag) {
+        if(!this.timerFlag && this.state.gameFlag) {
+            val.target.style.opacity = 0.3;
             this.sum += parseInt(val.target.value);
             this.counter++;
             if(this.counter === 4) {
                 this.counter = 0;
                 if(this.sum === this.target) {
-                    //console.log("done");
+                    this.greenFlag = true;
                     this.refs.rbtn.setAttribute('class','greenbtn');
                 }
                 else {
-                    //console.log("Wrong Answer");
                     this.refs.rbtn.setAttribute('class','redbtn');
                 }
-                // this.timerFlag = true;
+                this.timerFlag = true;
                 this.sum = 0;
-                // clearInterval(this.downloadTimer());
-                // document.getElementById("countdown").innerHTML = "Finished";
             }
         }
     }
@@ -59,16 +64,24 @@ class MainDiv extends Component {
             .slice(0, 4)
             .reduce((acc, curr) => acc + curr, 0);
         this.shuffle(this.randomNumbers);
-        // this.timeleft = 15;
-        // this.timerFlag = false; 
-        // this.downloadTimer();   
-        this.refs.rbtn.setAttribute('class','resultbtn');
+        this.timeleft = 15;
+        this.timerFlag = false; 
+        this.greenFlag = false;
+        this.timerFun();
+        this.counter = 0;
+        this.sum = 0;   
+        this.refs.rbtn.setAttribute('class','bluebtn');
+        var target = document.querySelectorAll('button');
+        Array.prototype.forEach.call(target, function(element){
+            element.removeAttribute('style');
+        });
         this.setState({gameFlag:true});   
     }
 
     render() {
         return(
             <div className="mainContainer">
+                <p>Pick 4 numbers that sum to the target in 15 seconds</p>
                 <div className="resultnumber" id="result">
                     <button className="resultbtn" type="submit" ref="rbtn">{this.state.gameFlag?this.target:"?"}</button>
                 </div>

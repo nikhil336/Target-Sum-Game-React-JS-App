@@ -47,6 +47,14 @@
     background-color: red;
 }
 
+.bluebtn {
+    border: none;
+    width: 25%;
+    padding: 20px 0px 20px;
+    margin: 0px 0px 20px;
+    background-color: cyan;
+}
+
 .playbtn {
     display: flex;
     justify-content: space-around;
